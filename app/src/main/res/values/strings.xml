@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">MyFamilyMeeting</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="welcometext">CHE’ ALIZ\n
+        אד׳׳ם הכהן 3 קומה חמש מעל גגות תל אביב\n
+מסעדת גורמה יוקרתית\n
+ הכניסה בלבוש הולם על בסיס הזמנות בלבד\n
+שרותי חניה במקום</string>
+</resources>

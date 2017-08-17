@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "999855818536",
+    "firebase_url": "https://myfamilymeeting-7ded9.firebaseio.com",
+    "project_id": "myfamilymeeting-7ded9",
+    "storage_bucket": "myfamilymeeting-7ded9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:999855818536:android:ddb43ac5d7ec2e0c",
+        "android_client_info": {
+          "package_name": "sagib.edu.myfamilymeeting"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "999855818536-mu9d02fu3ki50hqedjj5eqhm116s30al.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "sagib.edu.myfamilymeeting",
+            "certificate_hash": "ddd75a478065f2b0d11e66e24992a6c5fe77f5d5"
+          }
+        },
+        {
+          "client_id": "999855818536-39sdfnjv65gu9njsml562adh6bsdcp9t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNj-bMKP8e_vSLLZrsM0SZu7w0MfMJf7w"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "999855818536-39sdfnjv65gu9njsml562adh6bsdcp9t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
