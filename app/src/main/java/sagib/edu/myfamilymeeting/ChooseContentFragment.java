@@ -159,6 +159,10 @@ public class ChooseContentFragment extends BottomSheetDialogFragment {
                                 adjusted = topingsFood.replaceAll("(?m)^[ \t]*\r?\n", "");
                             prefs.edit().putString("topingsFood", adjusted).commit();
                             break;
+                        case "allRecipes":
+                            String allRecipes = snapshot.getValue(String.class);
+                            prefs.edit().putString("allRecipes", allRecipes).commit();
+                            break;
                     }
                 }
             }

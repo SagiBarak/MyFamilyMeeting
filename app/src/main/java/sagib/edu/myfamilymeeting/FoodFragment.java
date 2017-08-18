@@ -57,6 +57,9 @@ public class FoodFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_food, container, false);
         unbinder = ButterKnife.bind(this, v);
         prefs = getContext().getSharedPreferences("Values", Context.MODE_PRIVATE);
+        String allRecipes = prefs.getString("allRecipes", "");
+        Log.d("SagiBstart", allRecipes);
+        String[] allRecipesArray = allRecipes.split("מתכון:");
 
         String openMenu = prefs.getString("openMenu", "").replace("  ", " ");
         while (openMenu.contains("  ")) {
@@ -84,7 +87,24 @@ public class FoodFragment extends Fragment {
         }
 
         ArrayList<Recipe> recipes = new ArrayList<>();
-        recipes.add(new Recipe("חמוצים סינים", "ערבב בעדינות..."));
+        String lineSep = "\n";
+        for (String s : allRecipesArray) {
+            String[] split = s.split("\\r?\\n");
+            String name = "";
+            StringBuilder data = new StringBuilder();
+            for (int i = 1; i < split.length; i++) {
+                if (i == 1) {
+                    name = split[i];
+                } else {
+                    data.append(split[i]);
+                    data.append(lineSep);
+                }
+            }
+            String recipe = data.toString();
+            Recipe recipe1 = new Recipe(name, recipe);
+            recipes.add(recipe1);
+            Log.d("SagiB", recipe1.toString());
+        }
 
         String[] firsts = firstFood.split("\\r?\\n");
         String[] seconds = secondFood.split("\\r?\\n");
@@ -126,20 +146,20 @@ public class FoodFragment extends Fragment {
             Food food = new Food(last, null);
             lastsArray.add(food);
         }
-
-        FoodAdapter openingAdapter = new FoodAdapter(firstsArray, getContext(), recipes);
+        tvOpening.setText(openMenu);
+        FoodAdapter openingAdapter = new FoodAdapter(firstsArray, getContext(), recipes, this);
         rvOpening.setAdapter(openingAdapter);
         rvOpening.setLayoutManager(new LinearLayoutManager(getContext()));
-        FoodAdapter firstsAdapter = new FoodAdapter(secondsArray, getContext(), recipes);
+        FoodAdapter firstsAdapter = new FoodAdapter(secondsArray, getContext(), recipes, this);
         rvFirsts.setAdapter(firstsAdapter);
         rvFirsts.setLayoutManager(new LinearLayoutManager(getContext()));
-        FoodAdapter primarysAdapter = new FoodAdapter(primarysArray, getContext(), recipes);
+        FoodAdapter primarysAdapter = new FoodAdapter(primarysArray, getContext(), recipes, this);
         rvPrimarys.setAdapter(primarysAdapter);
         rvPrimarys.setLayoutManager(new LinearLayoutManager(getContext()));
-        FoodAdapter toppingsAdapter = new FoodAdapter(topingsArray, getContext(), recipes);
+        FoodAdapter toppingsAdapter = new FoodAdapter(topingsArray, getContext(), recipes, this);
         rvToppings.setAdapter(toppingsAdapter);
         rvToppings.setLayoutManager(new LinearLayoutManager(getContext()));
-        FoodAdapter lastfoodAdapter = new FoodAdapter(lastsArray, getContext(), recipes);
+        FoodAdapter lastfoodAdapter = new FoodAdapter(lastsArray, getContext(), recipes, this);
         rvLastFood.setAdapter(lastfoodAdapter);
         rvLastFood.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -157,12 +177,15 @@ public class FoodFragment extends Fragment {
         Context context;
         LayoutInflater inflater;
         ArrayList<Recipe> recipes;
+        Bundle args = new Bundle();
+        Fragment fragment;
 
-        public FoodAdapter(ArrayList<Food> food, Context context, ArrayList<Recipe> recipes) {
+        public FoodAdapter(ArrayList<Food> food, Context context, ArrayList<Recipe> recipes, Fragment fragment) {
             this.food = food;
             this.context = context;
             inflater = LayoutInflater.from(context);
             this.recipes = recipes;
+            this.fragment = fragment;
         }
 
         @Override
@@ -177,18 +200,24 @@ public class FoodFragment extends Fragment {
             holder.tvFoodItem.setText(thisFood.getName());
             if (recipes != null) {
                 for (Recipe recipe : recipes) {
-                    Log.d("SagiB recipe", recipe.getFoodName());
-                    Log.d("SagiB recipe", thisFood.getName());
                     if (recipe.getFoodName().equals(thisFood.getName())) {
                         thisFood.setRecipe(recipe.getRecipe());
+                        args.clear();
+                        args.putParcelable("Recipe", recipe);
+
                     }
                 }
             }
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (thisFood.getRecipe() != null)
+                    if (thisFood.getRecipe() != null) {
                         Toast.makeText(context, thisFood.getRecipe(), Toast.LENGTH_SHORT).show();
+                        RecipeDialogFragment recipeDialogFragment = new RecipeDialogFragment();
+                        recipeDialogFragment.setArguments(args);
+                        recipeDialogFragment.show(fragment.getChildFragmentManager(), "Recipe");
+
+                    }
                 }
             });
         }

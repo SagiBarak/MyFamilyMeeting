@@ -225,6 +225,7 @@ public class AdminFragment extends BottomSheetDialogFragment {
                         String openImages = text.substring(text.indexOf("תמונת פתיחה(") + 19).substring(0, 1);
                         String bodyImages = text.substring(text.indexOf("תמונות(") + 14).substring(0, 1);
                         String foodImages = text.substring(text.indexOf("תמונות תפריט(") + 20).substring(0, 1);
+                        String allRecipes = text.substring(text.indexOf("מתכון:"));
                         FirebaseDatabase.getInstance().getReference("Data").child(date.replace(".", "-")).child("text").child("header").setValue(header);
                         FirebaseDatabase.getInstance().getReference("Data").child(date.replace(".", "-")).child("text").child("textDate").setValue(textDate);
                         FirebaseDatabase.getInstance().getReference("Data").child(date.replace(".", "-")).child("text").child("opening").setValue(opening);
@@ -238,6 +239,7 @@ public class AdminFragment extends BottomSheetDialogFragment {
                         FirebaseDatabase.getInstance().getReference("Data").child(date.replace(".", "-")).child("text").child("primaryFood").setValue(primaryFood);
                         FirebaseDatabase.getInstance().getReference("Data").child(date.replace(".", "-")).child("text").child("topingsFood").setValue(topingsFood);
                         FirebaseDatabase.getInstance().getReference("Data").child(date.replace(".", "-")).child("text").child("lastFood").setValue(lastFood);
+                        FirebaseDatabase.getInstance().getReference("Data").child(date.replace(".", "-")).child("text").child("allRecipes").setValue(allRecipes);
                         FirebaseDatabase.getInstance().getReference("Data").child(date.replace(".", "-")).child("imageCount").child("openImages").setValue(openImages);
                         FirebaseDatabase.getInstance().getReference("Data").child(date.replace(".", "-")).child("imageCount").child("bodyImages").setValue(bodyImages);
                         FirebaseDatabase.getInstance().getReference("Data").child(date.replace(".", "-")).child("imageCount").child("foodImages").setValue(foodImages);
