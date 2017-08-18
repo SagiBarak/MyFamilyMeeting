@@ -1,6 +1,8 @@
 package sagib.edu.myfamilymeeting;
 
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int RC_WRITE = 1122;
     @BindView(R.id.content)
     FrameLayout content;
+    BottomNavigationView navigation;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -40,12 +43,15 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
+                    getSupportActionBar().setTitle("דברי פתיחה");
                     getSupportFragmentManager().beginTransaction().replace(R.id.content, new OpenFragment()).commit();
                     return true;
                 case R.id.navigation_menu:
+                    getSupportActionBar().setTitle("תפריט");
                     getSupportFragmentManager().beginTransaction().replace(R.id.content, new FoodFragment()).commit();
                     return true;
                 case R.id.navigation_quiz:
+                    getSupportActionBar().setTitle("חידות");
                     getSupportFragmentManager().beginTransaction().replace(R.id.content, new QuizFragment()).commit();
                     return true;
             }
@@ -130,9 +136,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
         gson = new Gson();
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+        navigation.setItemTextColor(ColorStateList.valueOf(Color.WHITE));
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.setItemIconTintList(ColorStateList.valueOf(Color.WHITE));
         getSupportFragmentManager().beginTransaction().replace(R.id.content, new WelcomeFragment()).commit();
+        getSupportActionBar().setTitle("ברוכים הבאים");
     }
 
     @Override
