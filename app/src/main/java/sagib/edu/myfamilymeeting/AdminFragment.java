@@ -62,7 +62,6 @@ public class AdminFragment extends BottomSheetDialogFragment {
     SharedPreferences prefs;
     private String datesParsed;
     ArrayList<String> dates = new ArrayList<>();
-    String currentDate;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

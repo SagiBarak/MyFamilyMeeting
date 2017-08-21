@@ -1,17 +1,24 @@
 package sagib.edu.myfamilymeeting;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.firebase.auth.FirebaseAuth;
@@ -43,15 +50,21 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    getSupportActionBar().setTitle("דברי פתיחה");
+                    getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+                    getSupportActionBar().setCustomView(R.layout.abs_layout);
+                    ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("דברי פתיחה");
                     getSupportFragmentManager().beginTransaction().replace(R.id.content, new OpenFragment()).commit();
                     return true;
                 case R.id.navigation_menu:
-                    getSupportActionBar().setTitle("תפריט");
+                    getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+                    getSupportActionBar().setCustomView(R.layout.abs_layout);
+                    ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("תפריט");
                     getSupportFragmentManager().beginTransaction().replace(R.id.content, new FoodFragment()).commit();
                     return true;
                 case R.id.navigation_quiz:
-                    getSupportActionBar().setTitle("חידות");
+                    getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+                    getSupportActionBar().setCustomView(R.layout.abs_layout);
+                    ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("חידות");
                     getSupportFragmentManager().beginTransaction().replace(R.id.content, new QuizFragment()).commit();
                     return true;
             }
@@ -142,7 +155,20 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setItemIconTintList(ColorStateList.valueOf(Color.WHITE));
         getSupportFragmentManager().beginTransaction().replace(R.id.content, new WelcomeFragment()).commit();
-        getSupportActionBar().setTitle("ברוכים הבאים");
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.abs_layout);
+        ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("ברוכים הבאים!");
+        BroadcastReceiver receiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+                getSupportActionBar().setCustomView(R.layout.abs_layout);
+                ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("דברי פתיחה");
+                getSupportFragmentManager().beginTransaction().replace(R.id.content, new OpenFragment()).commit();
+            }
+        };
+        IntentFilter intentFilter = new IntentFilter("Begin");
+        LocalBroadcastManager.getInstance(this).registerReceiver(receiver, intentFilter);
     }
 
     @Override
@@ -181,13 +207,13 @@ public class MainActivity extends AppCompatActivity {
                         case "body":
                             String body = snapshot.getValue(String.class);
                             if (body != null)
-                                adjusted = body.replaceAll("(?m)^[ \t]*\r?\n", "");
+                                adjusted = body.replaceAll("(?m)^[ \t]*\r?\n", "").trim();
                             prefs.edit().putString("body", adjusted).commit();
                             break;
                         case "endingText":
                             String endingText = snapshot.getValue(String.class);
                             if (endingText != null)
-                                adjusted = endingText.replaceAll("(?m)^[ \t]*\r?\n", "");
+                                adjusted = endingText.replaceAll("(?m)^[ \t]*\r?\n", "").trim();
                             prefs.edit().putString("endingText", adjusted).commit();
                             break;
                         case "firstFood":
@@ -217,7 +243,7 @@ public class MainActivity extends AppCompatActivity {
                         case "opening":
                             String opening = snapshot.getValue(String.class);
                             if (opening != null)
-                                adjusted = opening.replaceAll("(?m)^[ \t]*\r?\n", "");
+                                adjusted = opening.replaceAll("(?m)^[ \t]*\r?\n", "").trim();
                             prefs.edit().putString("opening", adjusted).commit();
                             break;
                         case "primaryFood":

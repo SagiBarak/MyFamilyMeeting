@@ -11,6 +11,11 @@
 מסעדת גורמה יוקרתית\n
  הכניסה בלבוש הולם על בסיס הזמנות בלבד\n
 שרותי חניה במקום</string>
+    <string name="welcomedesc">אד״ם הכהן 3, קומה חמישית,\nמעל גגות תל אביב!\n
+מסעדת גורמה יוקרתית\n
+ הכניסה בלבוש הולם,\nעל בסיס הזמנות בלבד!\n
+שרותי חניה במקום!</string>
+    <string name="welcometitle">ברוכים הבאים\nל-CHE’ ALIZ!</string>
     <string name="title_activity_view_pager">ViewPagerActivity</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
