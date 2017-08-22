@@ -23,8 +23,8 @@ import butterknife.Unbinder;
 public class FoodFragment extends Fragment {
 
 
-    @BindView(R.id.tvMenuTitle)
-    TextView tvMenuTitle;
+//    @BindView(R.id.tvMenuTitle)
+//    TextView tvMenuTitle;
     @BindView(R.id.tvOpening)
     TextView tvOpening;
     @BindView(R.id.tvOpeningTitle)

@@ -18,8 +18,8 @@ import butterknife.Unbinder;
 public class QuizFragment extends Fragment {
 
 
-    @BindView(R.id.tvQuizTitle)
-    TextView tvQuizTitle;
+//    @BindView(R.id.tvQuizTitle)
+//    TextView tvQuizTitle;
     @BindView(R.id.tvQuiz)
     TextView tvQuiz;
     Unbinder unbinder;

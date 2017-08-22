@@ -267,7 +267,7 @@ public class MainActivity extends AppCompatActivity {
                         case "textBeforeMenu":
                             String textBeforeMenu = snapshot.getValue(String.class);
                             if (textBeforeMenu != null)
-                                adjusted = textBeforeMenu.replaceAll("(?m)^[ \t]*\r?\n", "");
+                                adjusted = textBeforeMenu.replaceAll("(?m)^[ \t]*\r?\n", "").trim();
                             prefs.edit().putString("textBeforeMenu", adjusted).commit();
                             break;
                         case "textDate":

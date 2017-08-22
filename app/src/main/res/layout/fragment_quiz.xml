@@ -6,7 +6,7 @@
     tools:context="sagib.edu.myfamilymeeting.QuizFragment">
 
 
-    <TextView
+    <!--<TextView
         android:id="@+id/tvQuizTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -18,18 +18,23 @@
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" /> -->
 
     <TextView
         android:id="@+id/tvQuiz"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="8dp"
-        android:gravity="center"
         android:text="TextView"
+        android:gravity="right"
+        android:textColor="@color/bootstrap_brand_secondary_text"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvQuizTitle" />
+        app:layout_constraintTop_toTopOf="parent" />
+    <!--app:layout_constraintTop_toBottomOf="@+id/tvQuizTitle"-->
 </android.support.constraint.ConstraintLayout>
