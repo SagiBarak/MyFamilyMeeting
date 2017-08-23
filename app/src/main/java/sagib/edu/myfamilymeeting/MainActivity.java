@@ -10,14 +10,17 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -41,8 +44,11 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int RC_WRITE = 1122;
     @BindView(R.id.content)
-    FrameLayout content;
+    ViewPager content;
     BottomNavigationView navigation;
+    private SectionsPagerAdapter mSectionsPagerAdapter;
+    private ViewPager mViewPager;
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -50,22 +56,22 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-                    getSupportActionBar().setCustomView(R.layout.abs_layout);
-                    ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("דברי פתיחה");
-                    getSupportFragmentManager().beginTransaction().replace(R.id.content, new OpenFragment()).commit();
+                    if (mViewPager.getCurrentItem() == 1 || mViewPager.getCurrentItem() == 0)
+                        return true;
+                    mSectionsPagerAdapter.getItem(1);
+                    mViewPager.setCurrentItem(1);
                     return true;
                 case R.id.navigation_menu:
-                    getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-                    getSupportActionBar().setCustomView(R.layout.abs_layout);
-                    ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("תפריט");
-                    getSupportFragmentManager().beginTransaction().replace(R.id.content, new FoodFragment()).commit();
+                    if (mViewPager.getCurrentItem() == 3)
+                        return true;
+                    mSectionsPagerAdapter.getItem(3);
+                    mViewPager.setCurrentItem(3);
                     return true;
                 case R.id.navigation_quiz:
-                    getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-                    getSupportActionBar().setCustomView(R.layout.abs_layout);
-                    ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("חידות");
-                    getSupportFragmentManager().beginTransaction().replace(R.id.content, new QuizFragment()).commit();
+                    if (mViewPager.getCurrentItem() == 2)
+                        return true;
+                    mSectionsPagerAdapter.getItem(2);
+                    mViewPager.setCurrentItem(2);
                     return true;
             }
             return false;
@@ -89,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         Fresco.initialize(this);
-
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser == null) {
@@ -154,17 +159,54 @@ public class MainActivity extends AppCompatActivity {
         navigation.setItemTextColor(ColorStateList.valueOf(Color.WHITE));
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setItemIconTintList(ColorStateList.valueOf(Color.WHITE));
-        getSupportFragmentManager().beginTransaction().replace(R.id.content, new WelcomeFragment()).commit();
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        mViewPager = (ViewPager) findViewById(R.id.content);
+        mViewPager.setAdapter(mSectionsPagerAdapter);
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.abs_layout);
-        ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("ברוכים הבאים!");
+        ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("ברוכים הבאים");
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                switch (position){
+                    case 0:
+                        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+                        getSupportActionBar().setCustomView(R.layout.abs_layout);
+                        ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("ברוכים הבאים");
+                        break;
+                    case 1:
+                        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+                        getSupportActionBar().setCustomView(R.layout.abs_layout);
+                        ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("דברי פתיחה");
+                        break;
+                    case 2:
+                        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+                        getSupportActionBar().setCustomView(R.layout.abs_layout);
+                        ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("חידות");
+                        break;
+                    case 3:
+                        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+                        getSupportActionBar().setCustomView(R.layout.abs_layout);
+                        ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("תפריט");
+                        break;
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         BroadcastReceiver receiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-                getSupportActionBar().setCustomView(R.layout.abs_layout);
-                ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("דברי פתיחה");
-                getSupportFragmentManager().beginTransaction().replace(R.id.content, new OpenFragment()).commit();
+                mSectionsPagerAdapter.getItem(1);
+                mViewPager.setCurrentItem(1);
             }
         };
         IntentFilter intentFilter = new IntentFilter("Begin");
@@ -355,6 +397,56 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 return o1Year.compareTo(o2Year);
             }
+        }
+    }
+
+    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+
+        public SectionsPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            switch (position) {
+                case 0:
+                    Log.d("SagiB case 1", "here");
+                    return new WelcomeFragment();
+                case 1:
+                    Log.d("SagiB case 2", "here");
+                    return new OpenFragment();
+                case 2:
+                    Log.d("SagiB case 3", "here");
+                    return new QuizFragment();
+                case 3:
+                    Log.d("SagiB case 4", "here");
+                    return new FoodFragment();
+            }
+            return new Fragment();
+        }
+
+        @Override
+        public int getCount() {
+            return 4;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            switch (position) {
+                case 0:
+                    Log.d("SagiB case 1", "here");
+                    return "ברוכים הבאים";
+                case 1:
+                    Log.d("SagiB case 2", "here");
+                    return "דברי פתיחה";
+                case 2:
+                    Log.d("SagiB case 3", "here");
+                    return "חידות";
+                case 3:
+                    Log.d("SagiB case 4", "here");
+                    return "תפריט";
+            }
+            return "MyFamilyMeeting";
         }
     }
 }

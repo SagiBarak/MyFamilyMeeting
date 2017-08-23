@@ -46,10 +46,11 @@ dependencies {
     compile 'com.facebook.fresco:fresco:1.5.0'
     compile 'com.github.chathuralakmal:AndroidImagePopup:1.0.8'
     compile 'com.beardedhen:androidbootstrap:2.3.2'
+    compile 'com.android.support:multidex:1.0.1'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    compile 'com.android.support:multidex:1.0.1'
 }
+
 
 
 
