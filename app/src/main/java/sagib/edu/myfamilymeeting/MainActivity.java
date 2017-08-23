@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                switch (position){
+                switch (position) {
                     case 0:
                         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
                         getSupportActionBar().setCustomView(R.layout.abs_layout);
@@ -183,16 +183,19 @@ public class MainActivity extends AppCompatActivity {
                         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
                         getSupportActionBar().setCustomView(R.layout.abs_layout);
                         ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("דברי פתיחה");
+                        navigation.setSelectedItemId(R.id.navigation_home);
                         break;
                     case 2:
                         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
                         getSupportActionBar().setCustomView(R.layout.abs_layout);
                         ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("חידות");
+                        navigation.setSelectedItemId(R.id.navigation_quiz);
                         break;
                     case 3:
                         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
                         getSupportActionBar().setCustomView(R.layout.abs_layout);
                         ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("תפריט");
+                        navigation.setSelectedItemId(R.id.navigation_menu);
                         break;
                 }
             }
