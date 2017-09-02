@@ -220,8 +220,8 @@ public class AdminFragment extends BottomSheetDialogFragment {
                         String secondFood = text.substring(text.indexOf("ראשונות:") + 9, text.indexOf("עיקרית:"));
                         String primaryFood = text.substring(text.indexOf("עיקרית:") + 8, text.indexOf("תוספות:"));
                         String topingsFood = text.substring(text.indexOf("תוספות:") + 8, text.indexOf("קינוחים:"));
-                        String lastFood = text.substring(text.indexOf("קינוחים:") + 9, text.indexOf("תמונת פתיחה("));
-                        String openImages = text.substring(text.indexOf("תמונת פתיחה(") + 19).substring(0, 1);
+                        String lastFood = text.substring(text.indexOf("קינוחים:") + 9, text.indexOf("תמונות פתיחה("));
+                        String openImages = text.substring(text.indexOf("תמונות פתיחה(") + 20).substring(0, 1);
                         String bodyImages = text.substring(text.indexOf("תמונות(") + 14).substring(0, 1);
                         String foodImages = text.substring(text.indexOf("תמונות תפריט(") + 20).substring(0, 1);
                         String allRecipes = text.substring(text.indexOf("מתכון:"));
