@@ -2,8 +2,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#47252b88"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#47252b88">
 
     <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -11,24 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:context="sagib.edu.myfamilymeeting.FoodFragment">
-
-
-        <!--- <TextView
-             android:id="@+id/tvMenuTitle"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_marginEnd="8dp"
-             android:layout_marginLeft="8dp"
-             android:layout_marginRight="8dp"
-             android:layout_marginStart="8dp"
-             android:gravity="center"
-             android:text="תפריט"
-             android:textSize="30sp"
-             android:textStyle="bold"
-             android:textColor="@color/bootstrap_brand_secondary_text"
-             app:layout_constraintLeft_toLeftOf="parent"
-             app:layout_constraintRight_toRightOf="parent"
-             app:layout_constraintTop_toBottomOf="@+id/tvOpening" /> -->
 
         <TextView
             android:id="@+id/tvOpening"
@@ -72,11 +54,11 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintBottom_toTopOf="@+id/tvFirstTitle"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvOpeningTitle"
-            android:layout_marginTop="8dp" />
+            app:layout_constraintTop_toBottomOf="@+id/tvOpeningTitle" />
 
 
         <TextView
@@ -107,11 +89,11 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintBottom_toTopOf="@+id/tvPrimaryTitle"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvFirstTitle"
-            android:layout_marginTop="8dp" />
+            app:layout_constraintTop_toBottomOf="@+id/tvFirstTitle" />
 
 
         <TextView
@@ -142,11 +124,11 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintBottom_toTopOf="@+id/tvToppingsTitle"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvPrimaryTitle"
-            android:layout_marginTop="8dp" />
+            app:layout_constraintTop_toBottomOf="@+id/tvPrimaryTitle" />
 
 
         <TextView
@@ -176,11 +158,11 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintBottom_toTopOf="@+id/tvLastFoodTitle"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvToppingsTitle"
-            android:layout_marginTop="8dp" />
+            app:layout_constraintTop_toBottomOf="@+id/tvToppingsTitle" />
 
 
         <TextView
@@ -212,12 +194,12 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvLastFoodTitle"
-            android:layout_marginTop="8dp" />
+            app:layout_constraintTop_toBottomOf="@+id/tvLastFoodTitle" />
 
 
     </android.support.constraint.ConstraintLayout>
