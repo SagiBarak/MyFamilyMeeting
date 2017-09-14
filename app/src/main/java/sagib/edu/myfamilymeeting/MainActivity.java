@@ -87,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
     String latestDate = "";
     SubstringComparatorForDates comparator = new SubstringComparatorForDates();
     Gson gson;
+    IntentFilter intentFilter;
+    BroadcastReceiver receiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
         System.setProperty("org.apache.poi.javax.xml.stream.XMLEventFactory", "com.fasterxml.aalto.stax.EventFactoryImpl");
         prefs = getSharedPreferences("Values", MODE_PRIVATE);
         dataPrefs = getSharedPreferences("Data", MODE_PRIVATE);
+        prefs.edit().clear().commit();
         latestDate = dataPrefs.getString("LatestDate", "");
         FirebaseDatabase.getInstance().getReference("Data").addChildEventListener(new ChildEventListener() {
             @Override
@@ -205,14 +208,22 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        BroadcastReceiver receiver = new BroadcastReceiver() {
+        receiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                mSectionsPagerAdapter.getItem(1);
-                mViewPager.setCurrentItem(1);
+                mViewPager.setAdapter(null);
+                mViewPager.setAdapter(mSectionsPagerAdapter);
+                if (mViewPager.getCurrentItem() == 1 || mViewPager.getCurrentItem() == 2 || mViewPager.getCurrentItem() == 3) {
+                    mSectionsPagerAdapter.getItem(0);
+                    mViewPager.setCurrentItem(0);
+                }
+                mSectionsPagerAdapter.getItem(0);
+                mViewPager.setCurrentItem(0);
             }
         };
-        IntentFilter intentFilter = new IntentFilter("Begin");
+        intentFilter = new IntentFilter("Begin");
+        mViewPager.setAdapter(null);
+        mViewPager.setAdapter(mSectionsPagerAdapter);
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, intentFilter);
     }
 
@@ -237,6 +248,12 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
     }
 
     private void getDataByDate(final String date) {
@@ -374,6 +391,8 @@ public class MainActivity extends AppCompatActivity {
                     prefs.edit().remove("allImages").commit();
                     prefs.edit().putString("allImages", gson.toJson(images)).commit();
                 }
+                mViewPager.setAdapter(null);
+                mViewPager.setAdapter(mSectionsPagerAdapter);
             }
 
             @Override
@@ -381,6 +400,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        mViewPager.setAdapter(null);
+        mViewPager.setAdapter(mSectionsPagerAdapter);
     }
 
     public class SubstringComparatorForDates implements Comparator {

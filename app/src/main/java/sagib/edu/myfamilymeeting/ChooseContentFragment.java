@@ -2,11 +2,13 @@ package sagib.edu.myfamilymeeting;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,6 +77,7 @@ public class ChooseContentFragment extends BottomSheetDialogFragment {
         if (date == null) {
             return;
         }
+        prefs.edit().clear().commit();
         FirebaseDatabase.getInstance().getReference("Data").child(date).child("text").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -229,9 +232,11 @@ public class ChooseContentFragment extends BottomSheetDialogFragment {
             @Override
             public void run() {
                 dismiss();
-                fragmentManager.beginTransaction().replace(R.id.content, new WelcomeFragment()).commit();
+//                fragmentManager.beginTransaction().replace(R.id.content, new WelcomeFragment()).commit();
+                Intent intent = new Intent("Begin");
+                LocalBroadcastManager.getInstance(getContext()).sendBroadcast(intent);
             }
         };
-        h.postDelayed(r, 2000);
+        h.postDelayed(r, 3000);
     }
 }
