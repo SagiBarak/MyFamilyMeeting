@@ -77,7 +77,6 @@ public class ChooseContentFragment extends BottomSheetDialogFragment {
         if (date == null) {
             return;
         }
-        prefs.edit().clear().commit();
         FirebaseDatabase.getInstance().getReference("Data").child(date).child("text").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -87,79 +86,118 @@ public class ChooseContentFragment extends BottomSheetDialogFragment {
                         case "body":
                             String body = snapshot.getValue(String.class);
                             if (body != null)
-                                adjusted = body.replaceAll("(?m)^[ \t]*\r?\n", "");
+                                adjusted = body.replaceAll("(?m)^[ \t]*\r?\n", "").trim();
+                            if (adjusted.equals("")) {
+                                adjusted = " ";
+                            }
                             prefs.edit().putString("body", adjusted).commit();
                             break;
                         case "endingText":
                             String endingText = snapshot.getValue(String.class);
                             if (endingText != null)
-                                adjusted = endingText.replaceAll("(?m)^[ \t]*\r?\n", "");
+                                adjusted = endingText.replaceAll("(?m)^[ \t]*\r?\n", "").trim();
+                            if (adjusted.equals("")) {
+                                adjusted = " ";
+                            }
                             prefs.edit().putString("endingText", adjusted).commit();
                             break;
                         case "firstFood":
                             String firstFood = snapshot.getValue(String.class);
                             if (firstFood != null)
                                 adjusted = firstFood.replaceAll("(?m)^[ \t]*\r?\n", "");
+                            if (adjusted.equals("")) {
+                                adjusted = " ";
+                            }
                             prefs.edit().putString("firstFood", adjusted).commit();
                             break;
                         case "header":
                             String header = snapshot.getValue(String.class);
                             if (header != null)
                                 adjusted = header.replaceAll("(?m)^[ \t]*\r?\n", "");
+                            if (adjusted.equals("")) {
+                                adjusted = " ";
+                            }
                             prefs.edit().putString("header", adjusted).commit();
                             break;
                         case "lastFood":
                             String lastFood = snapshot.getValue(String.class);
                             if (lastFood != null)
                                 adjusted = lastFood.replaceAll("(?m)^[ \t]*\r?\n", "");
+                            if (adjusted.equals("")) {
+                                adjusted = " ";
+                            }
                             prefs.edit().putString("lastFood", adjusted).commit();
                             break;
                         case "openMenu":
                             String openMenu = snapshot.getValue(String.class);
                             if (openMenu != null)
                                 adjusted = openMenu.replaceAll("(?m)^[ \t]*\r?\n", "");
+                            if (adjusted.equals("")) {
+                                adjusted = " ";
+                            }
                             prefs.edit().putString("openMenu", adjusted).commit();
                             break;
                         case "opening":
                             String opening = snapshot.getValue(String.class);
                             if (opening != null)
-                                adjusted = opening.replaceAll("(?m)^[ \t]*\r?\n", "");
+                                adjusted = opening.replaceAll("(?m)^[ \t]*\r?\n", "").trim();
+                            if (adjusted.equals("")) {
+                                adjusted = " ";
+                            }
                             prefs.edit().putString("opening", adjusted).commit();
                             break;
                         case "primaryFood":
                             String primaryFood = snapshot.getValue(String.class);
                             if (primaryFood != null)
                                 adjusted = primaryFood.replaceAll("(?m)^[ \t]*\r?\n", "");
+                            if (adjusted.equals("")) {
+                                adjusted = " ";
+                            }
                             prefs.edit().putString("primaryFood", adjusted).commit();
                             break;
                         case "quiz":
                             String quiz = snapshot.getValue(String.class);
                             if (quiz != null)
                                 adjusted = quiz.replaceAll("(?m)^[ \t]*\r?\n", "");
+                            if (adjusted.equals("")) {
+                                adjusted = " ";
+                            }
                             prefs.edit().putString("quiz", adjusted).commit();
                             break;
                         case "secondFood":
                             String secondFood = snapshot.getValue(String.class);
                             if (secondFood != null)
                                 adjusted = secondFood.replaceAll("(?m)^[ \t]*\r?\n", "");
+                            if (adjusted.equals("")) {
+                                adjusted = " ";
+                            }
                             prefs.edit().putString("secondFood", adjusted).commit();
                             break;
                         case "textBeforeMenu":
                             String textBeforeMenu = snapshot.getValue(String.class);
                             if (textBeforeMenu != null)
-                                adjusted = textBeforeMenu.replaceAll("(?m)^[ \t]*\r?\n", "");
+                                adjusted = textBeforeMenu.replaceAll("(?m)^[ \t]*\r?\n", "").trim();
+                            if (adjusted.equals("")) {
+                                adjusted = " ";
+                            }
                             prefs.edit().putString("textBeforeMenu", adjusted).commit();
                             break;
                         case "textDate":
                             String textDate = snapshot.getValue(String.class);
                             if (textDate != null)
                                 adjusted = textDate.replaceAll("(?m)^[ \t]*\r?\n", "");
+                            if (adjusted.equals("")) {
+                                adjusted = " ";
+                            }
                             prefs.edit().putString("textDate", adjusted).commit();
                             break;
                         case "topingsFood":
                             String topingsFood = snapshot.getValue(String.class);
                             if (topingsFood != null)
                                 adjusted = topingsFood.replaceAll("(?m)^[ \t]*\r?\n", "");
+                            if (adjusted.equals("")) {
+                                adjusted = " ";
+                            }
                             prefs.edit().putString("topingsFood", adjusted).commit();
                             break;
                         case "allRecipes":
